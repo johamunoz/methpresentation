@@ -8,7 +8,7 @@ format:
     chalkboard: true
     # self-contained: true
     # scrollable: true
-    logo: images\logo.png
+    logo: images/logo.png
     theme: 
       - style.scss
 ---
