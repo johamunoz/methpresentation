@@ -1,317 +1,267 @@
 ---
-title: "Syntesis of calibration plots"
-author: "Munoz, Debray & de Jong <br>May 1st, 2023"
-
 format: 
   revealjs:
     slide-number: true
-    logo: images/logo.png
-    css: images/logo.css
-    theme: default
-    preview-links: auto
-    chalkboard: 
-      boardmarker-width: 5
-from: markdown+emoji
-execute:
-  echo: false
-editor: visual
+    # preview-links: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    logo: images\logo.png
+    theme: 
+      - theme.scss
 ---
 
-## Today's presentation
+<br> <br>
 
-<br/>
+<hr>
+
+[Synthesis of calibration plots]{.custom-title}
+
+<hr>
+
+<br> <br>
+
+[Munoz, Debray & de Jong]{.custom-subtitle}
+
+Julius Center, Epi Methods group
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Motivation]{.slide-title}
+
+<hr>
 
 ::: incremental
-1.  What is a calibration plot?
-2.  Issues with multiple source information
-3.  Methods
-4.  Simulation
+-   Literature enhance the use of calibration plot over discrete measures(Austin 2014).
+-   Available package to get calibration plots (rms,calibration).
+-   The synthesis of calibration plots coming from different source of information (**Clusters**).
 :::
 
-## Prediction model
+------------------------------------------------------------------------
 
-::: columns
-::: {.column width="60%"}
-::: fragment
-$$y \sim \beta_0+ \beta_1X$$ $$ ln\left(\frac{\pi}{1-\pi}\right)=\beta_0+ \beta_1X$$
-:::
-
-::: fragment
-[Calibration:]{style="color:#007FFF"}
-:::
-
-::: fragment
-Agreement between the prediction risk '$\pi$' and the observed proportion of the outcome '$y$'
-:::
-:::
-
-::: {.column width="40%"}
-::: fragment
-![Model prediction output (Calibration in large)](images/mod_pred.png){fig-align="right"}
-:::
-:::
-:::
-
-## Calibration plot
-
-::: columns
-::: {.column width="30%"}
-Group $\pi$ in bins ![](images/bin_prop.png){fig-align="left"}
-:::
-
-::: {.column width="70%"}
-```{r fig.width=6, fig.height=6}
-df <- data.frame(pi=seq(0.1,0.9,0.1),
-                 n = c(2,12,10,10,10,15,14,16,11),
-                 ny =c(0,2,3,2,5,11,8,12,11))
-df$prop<-df$ny/df$n
-library(ggplot2)
-ggplot(df,aes(x=pi,y=prop))+
-  geom_point(color="blue", size=2)+
-  geom_line(color="blue")+
-  geom_abline(linetype="dashed")+
-  theme_light()+
-  xlab(expression("Mean predicted value"~(pi)))+ylab("Observed proportion (y=1)")
-  
-```
-:::
-:::
-
-:::
-
-## Multiple sources of information
-
-::: columns
-::: {.column width="30%"}
-![](images/mclust.png){width="80%"}
-:::
-
-::: {.column width="70%"}
-::: fragment
--   Multiple imputation:
-
-    Cluster = completed data set
-:::
-
-::: fragment
--   Individual patient data (IPD):
-
-    Cluster = study data set
-:::
-:::
-:::
+[{{< fa check >}} Calibration plots from clusters]{.slide-title}
 
 ```{r}
 #| echo: false
-library(tidyverse)
-library(binom)
-df <- data.frame(cluster = rep(c("1","2","K"),each=9),
-                 pi = rep(seq(0.1,0.9,0.1),3),
-                 n = c(20,120,100,100,100,150,140,160,110),
-                 ny =c(0,10,30,20,50,110,80,120,110,1,30,30,NA,NA,NA,NA,NA,NA,NA,NA,NA,80,130,140,137,158,110))
-
-dall<-as_tibble(df)%>%
-  mutate(prob=ny/n)%>%
-  mutate(n=sample(seq(30,60,by=1), 27, replace = TRUE))%>%
-  mutate(y=map2(n,prob,~rbinom(n=.x,size=1,prob=.y)))%>%
-  unnest(cols = c(y))%>%
-  filter(complete.cases(.))
-  
-dsum <- dall%>%
-         nest( data = -c(cluster,pi))%>%
-         mutate(obs_sum = map(data,~.x%>%dplyr::summarize(n_obs = n(),
-                                                          n_ev = sum(y,na.rm=T))))%>%
-         mutate(test=map(obs_sum,function(x){
-                testres<-prop.test(x = x$n_ev, n = x$n_obs, correct = TRUE)
-                data.frame(prop=testres$estimate[[1]],lower=testres$conf[1],upper=testres$conf[2])
-         }))%>%
-         select(-c(data,obs_sum))%>%
-         unnest(col=c(test))
+library(ggplot2)
+load("images/dataplot1.Rdata")
+load("images/sdata1.Rdata")
 ```
 
-## Overall calibration curve
-
-::: columns
-::: {.column width="30%"}
-![](images/mclust.png){width="80%"}
-:::
-
-::: {.column width="70%"}
-::: fragment
-```{r fig.width=6, fig.height=6}
-ggplot(dsum, aes(pi, prop, color = cluster)) +
-  geom_errorbar(
-    aes(ymin = lower, ymax = upper),
-    position = position_dodge(0.02), width = 0.01)+
-  geom_point( position = position_dodge(0.02))+
-  geom_line( position = position_dodge(0.02))+
-  scale_color_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  scale_fill_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  xlab(expression("Mean predicted value"~(pi)))+ylab("Observed proportion (y=1)")+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  theme(legend.position = "bottom")
-
+```{r fig.width=12, fig.height=6}
+ggplot(data = dataplot, aes(x = pi, y =pr,color=as.factor(cluster))) +
+  theme_light()+
+  geom_ribbon(aes(ymin = Lpr, ymax = Upr), fill = "lightgray",alpha = .3, colour = NA)+ 
+  geom_abline(color="black",linetype="dashed")+
+  geom_line(color="#047C90")+
+  facet_wrap(~cluster,ncol=10)+
+  labs( x =expression("Estimated probability"~(pi)),
+        y = "Empirical probability")+
+  theme(legend.position="none")+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
 ```
-:::
-:::
-:::
+------------------------------------------------------------------------
 
-:::
+[{{< fa check >}} Calibration plots from clusters]{.slide-title}
 
-## Overall calibration curve
-
-::: columns
-::: {.column width="30%"}
-![](images/mclust.png){width="80%"}
-:::
-
-::: {.column width="70%"}
-```{r fig.width=6, fig.height=6}
-ggplot(dall, aes(pi, y)) +
-  geom_smooth(aes(color = cluster, fill = cluster),method = glm, method.args= list(family="binomial"))+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  scale_color_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  scale_fill_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  xlab(expression("Mean predicted value"~(pi)))+ylab("Observed proportion (y=1)")+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  theme(legend.position = "bottom")
-  
+```{r fig.width=10, fig.height=6}
+ggplot(data = dataplot) +
+  theme_light()+
+  geom_line(aes(x = pi, y = pr,group=cluster),color="#047C90",alpha=0.2)+
+  labs( x =expression("Estimated probability"~(pi)),
+        y = "Actual proportion")+
+  theme(legend.position="none")+
+  geom_line(data=sdata,aes(x,y),size=1.5,color="#003660")+
+  geom_abline(color="black",linetype="dashed")+
+   labs( x =expression("Estimated probability"~(pi)),
+        y = "Empirical probability")+
+  theme(legend.position="none")
 ```
-:::
-:::
 
-::: ::: :::
+------------------------------------------------------------------------
 
-## Overall calibration curve (Average)
+[{{< fa check >}} Calibration plots from clusters]{.slide-title}
 
-::: columns
-::: {.column width="30%"}
-![](images/mclust.png){width="80%"}
-:::
-
-::: {.column width="70%"}
-```{r fig.width=6, fig.height=6}
-ggplot(dall, aes(pi, y)) +
-  geom_smooth(aes(color = cluster, fill = cluster),method = glm, method.args= list(family="binomial"))+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  scale_color_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  scale_fill_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  theme(legend.position = "top")+
-  geom_smooth(method = glm, method.args= list(family="binomial"),se=F,color="Purple",linetype="dotted")+
-  xlab(expression("Mean predicted value"~(pi)))+ylab("Observed proportion (y=1)")+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  theme(legend.position = "bottom")
-  
+```{r fig.width=10, fig.height=6}
+ggplot(data = dataplot) +
+  theme_light()+
+    geom_line(aes(x = pi, y = pr,group=cluster),color="#047C90",alpha=0.2)+
+  labs( x =expression("Estimated probability"~(pi)),
+        y = "Actual proportion")+
+  theme(legend.position="none")+
+  geom_ribbon(data=sdata,aes(x=x,ymax=ymax,ymin=ymin), fill = "#ADADAD")+
+  geom_line(data=sdata,aes(x,y),size=1.5,color="#003660")+
+  geom_abline(color="black",linetype="dashed")+
+   labs( x =expression("Estimated probability"~(pi)),
+        y = "Empirical probability")+
+  theme(legend.position="none")
 ```
-:::
-:::
 
-::: ::: :::
+------------------------------------------------------------------------
 
-## Overall calibration curve (SE)
+[{{< fa check >}} Context]{.slide-title}
+![](images/m1.png)
 
-::: columns
-::: {.column width="30%"}
-![](images/mclust.png){width="80%"}
-:::
+------------------------------------------------------------------------
 
-::: {.column width="70%"}
-```{r fig.width=6, fig.height=6}
-ggplot(dall, aes(pi, y)) +
-  geom_smooth(aes(color = cluster, fill = cluster),method = glm, method.args= list(family="binomial"))+
-  scale_x_continuous(breaks=seq(0.1,0.9,0.1))+
-  geom_abline(linetype="dashed")+theme_light()+
-  scale_color_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  scale_fill_manual(values=c("#99CCFF", "#99CC99","#FFCC66"))+
-  geom_smooth(method = glm, method.args= list(family="binomial"),se=T,color="Purple",linetype="dotted")+
-  theme(legend.position = "bottom")
-  
-```
-:::
-:::
+[{{< fa check >}} Context]{.slide-title}
+![](images/m2.png)
 
-::: :::
+------------------------------------------------------------------------
 
-## Methods
+[{{< fa check >}} Context]{.slide-title}
+![](images/m3.png)
 
--   Stacked
--   Agregated by ID
--   Model based
--   Bootstrapp
+------------------------------------------------------------------------
 
-## Stacked
+[{{< fa check >}} Context]{.slide-title}
+![](images/m4.png)
 
-![](images/stack.png){width="150%"}
+------------------------------------------------------------------------
 
-## Agregated by ID
+[{{< fa check >}} Context]{.slide-title}
+![](images/m5.png)
 
-![](images/modid.png){width="150%"}
+------------------------------------------------------------------------
 
-## Model based 1-step
+[{{< fa check >}} Context]{.slide-title}
+![](images/m6.png)
 
-![](images/mod1s.png){width="150%,height=150%"}
+------------------------------------------------------------------------
 
-## Model based 2-step (Multivariate)
+[{{< fa check >}} Context]{.slide-title}
+![](images/cl1.png)
 
-![](images/mod2m.png){width="120%,height=120%"}
+------------------------------------------------------------------------
 
-## Model based 2-step (Point-wise)
+[{{< fa check >}} Context]{.slide-title}
+![](images/cl2.png)
 
-![](images/mod2p.png){width="150%"}
+------------------------------------------------------------------------
 
-## Boot-strap
+[{{< fa check >}} Multiple Imputation]{.slide-title}
 
-![](images/boot.png){width="150%"}
+<hr>
+**Aim:**
+Evaluate methods for synthesize the calibration curves derived from multiple imputation output or from individual participant data in terms of coverage, CI length and bias. We focus on:
 
-## Simulation
-
-::: fragment
-[Aim:]{style="color:#007FFF"}
+::: incremental
+-   Smoothed calibration curves.
+-   Smooth functions : Loess, Locfit, natural splines.
+-   Confidence intervals: Closed form, Bootstrap.
 :::
 
-::: fragment
-Evaluate the performance of these methods
+------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title}
+![](images/d1.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title}
+![](images/d2.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title}
+![](images/d3.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title}
+![](images/d4.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title}
+![](images/d5.png)
+------------------------------------------------------------------------
+
+[{{< fa check >}} Methods]{.slide-title}
+
+<hr>
+
++------------------------------+---------------------------------------+------------+------------+
+| Type                         | Method                                | MI         | BT         |
++==============================+=======================================+============+============+
+| Multiple imputation only (m) | -   Stack.                            | 10         |            |
+|                              | -   Model pooled parameters (RRPar).  |            |            |
+|                              | -   Pooled se closed form (RR).       |            |            |
++------------------------------+---------------------------------------+------------+------------+
+| MI then Bootstrap (mb)       | -   Rubins rules (RR).                | 10         | 1000       |
+|                              | -   Percentile Quartiles (Q).         |            |            |
++------------------------------+---------------------------------------+------------+------------+
+| Bootstrap then MI (bm)       | -   Percentile pooled Quartiles (Qp). | -   10     | 1000       |
+|                              | -   Percentile total Quartiles (Qt).  | -   10     |            |
+|                              | -   Single quartile (Q1).             | -   1      |            |
+|                              | -   Von Hippel (VH).                  | -   2      |            |
++------------------------------+---------------------------------------+------------+------------+
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Performance measurements]{.slide-title}
+
+<hr>
+
+Across 100 percentiles
+
+-   CI length
+-   Bias (median).
+-   Coverage (median, number of points in 95%CI coverage).
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Conditional results]{.slide-title}
+ ![](images/Cond.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: CI length]{.slide-title}
+![](images/medCIL2.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: Bias]{.slide-title}
+![](images/meanbias2.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: Coverage]{.slide-title}
+![](images/mediancov.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: Rank]{.slide-title}
+![](images/rank.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Conclusion]{.slide-title}
+
+<hr>
+
+::: incremental
+-   Not an overall winner method in coverage or bias.
+-   Bootstrap and then MI methods provide more points inside the 95%CI coverage.
+-   Single BS-MI alternative considering time processing.
 :::
 
-::: fragment
-[Data generation:]{style="color:#007FFF"}
-:::
+------------------------------------------------------------------------
 
-::: fragment
--   Multiple imputation
-:::
+[{{< fa check >}} References]{.slide-title}
 
-::: fragment
--   IPD ($\pi$ range variation)
-:::
+<hr>
 
-## Simulation
+1.  Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.
+2.  Harrell FE Jr. Regression Modeling Strategies. 2nd ed. New York, NY: Springer-Verlag; 2015.
+3.  Schomaker, M., & Heumann, C. (2018). Bootstrap inference when using multiple imputation. Statistics in medicine, 37(14), 2252-2266.
+4.  Bartlett, J. W., & Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.
+ 
+------------------------------------------------------------------------
 
-::: fragment
-[Performance measures:]{style="color:#007FFF"}
-:::
 
-::: fragment
-[1. Marginal metrics:]{style="color:#99CCFF"}
 
-\- ICI (bias)
 
-\- e50, e90, emax
 
-\- Coverage
-:::
-
-::: fragment
-[2. Conditional metrics $f(\pi)$:]{style="color:#99CCFF"}
-
-\- Bias
-
-\- Length of the confidence interval
-
-\- Coverage
-:::
