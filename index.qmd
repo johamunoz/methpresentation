@@ -10,7 +10,7 @@ format:
     # scrollable: true
     logo: images\logo.png
     theme: 
-      - theme.scss
+      - style.scss
 ---
 
 <br> <br>
