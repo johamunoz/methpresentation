@@ -325,22 +325,13 @@
     <div class="slides">
 
 
-<section class="slide level2"><p><br><br></p>
-<hr>
+<section class="slide level2"><hr>
 <p><span class="custom-title">Synthesis of calibration plots</span></p>
 <hr>
 <p><br><br></p>
-<p><span class="custom-subtitle">Munoz, Debray &amp; de Jong</span></p>
-<p>Julius Center, Epi Methods group</p>
-</section><section class="slide level2"><p><span class="slide-title"> Motivation</span></p>
-<hr>
-<div>
-<ul>
-<li class="fragment">Literature enhance the use of calibration plot over discrete measures(Austin 2014).</li>
-<li class="fragment">Available package to get calibration plots (rms,calibration).</li>
-<li class="fragment">The synthesis of calibration plots coming from different source of information (<strong>Clusters</strong>).</li>
-</ul>
-</div>
+<p><span class="custom-subtitle">Muñoz, Debray &amp; de Jong</span></p>
+<p>Julius Center for Health Sciences and Primary Care, Epidemiology Methods Team</p>
+</section><section class="slide level2"><p><span class="slide-title"> Motivation</span> <img data-src="images/F1.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Calibration plots from clusters</span></p>
 <div class="cell">
 
@@ -350,17 +341,9 @@
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Calibration plots from clusters</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m1.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m2.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m3.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m4.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m5.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/m6.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/cl1.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Context</span> <img data-src="images/cl2.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
 <hr>
-<p><strong>Aim:</strong> Evaluate methods for synthesize the calibration curves derived from multiple imputation output or from individual participant data in terms of coverage, CI length and bias. We focus on:</p>
+<p><strong>Aim:</strong> Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage. We focus on:</p>
 <div>
 <ul>
 <li class="fragment">Smoothed calibration curves.</li>
@@ -369,91 +352,64 @@
 </ul>
 </div>
 </section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d1.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d2.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d3.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d2.png"> ————————————————————————</p>
+<p><span class="slide-title"> Data generation</span> <img data-src="images/d3.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d4.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d5.png"> ————————————————————————</p>
-<p><span class="slide-title"> Methods</span></p>
+</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d5.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
 <hr>
-<table style="width:98%;">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 40%">
-<col style="width: 13%">
-<col style="width: 13%">
-</colgroup>
-<thead><tr class="header">
-<th>Type</th>
-<th>Method</th>
-<th>MI</th>
-<th>BT</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Multiple imputation only (m)</td>
-<td><ul>
-<li>Stack.</li>
-<li>Model pooled parameters (RRPar).</li>
-<li>Pooled se closed form (RR).</li>
-</ul></td>
-<td>10</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>MI then Bootstrap (mb)</td>
-<td><ul>
-<li>Rubins rules (RR).</li>
-<li>Percentile Quartiles (Q).</li>
-</ul></td>
-<td>10</td>
-<td>1000</td>
-</tr>
-<tr class="odd">
-<td>Bootstrap then MI (bm)</td>
-<td><ul>
-<li>Percentile pooled Quartiles (Qp).</li>
-<li>Percentile total Quartiles (Qt).</li>
-<li>Single quartile (Q1).</li>
-<li>Von Hippel (VH).</li>
-</ul></td>
-<td><ul>
-<li>10</li>
-<li>10</li>
-<li>1</li>
-<li>2</li>
-</ul></td>
-<td>1000</td>
-</tr>
-</tbody>
-</table></section><section class="slide level2"><p><span class="slide-title"> Performance measurements</span></p>
-<hr>
-<p>Across 100 percentiles</p>
+<div>
+<p><strong>1. Multiple imputation only (m):</strong></p>
+<p><span class="custom-subtitle"> MI = 10.</span></p>
 <ul>
-<li>CI length</li>
-<li>Bias (median).</li>
-<li>Coverage (median, number of points in 95%CI coverage).</li>
-</ul></section><section class="slide level2"><p><span class="slide-title"> Conditional results</span> <img data-src="images/Cond.png"></p>
+<li class="fragment"><p><strong>m_stack:</strong> Stack imputed datasets.</p></li>
+<li class="fragment"><p><strong>m_RRPar:</strong> Calibration model with pooled parameters.</p></li>
+<li class="fragment"><p><strong>m_RR:</strong> Pooled closed form SE with Rubin Rules.</p></li>
+</ul>
+</div>
+</section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<hr>
+<div>
+<p><strong>2. MICE followed by bootstrap (mb):</strong></p>
+<p><span class="custom-subtitle"> BS = 1000, MI = 10.</span></p>
+<ul>
+<li class="fragment"><p><strong>mb_Qp:</strong> Bootstrap percentile pooled sample.</p></li>
+<li class="fragment"><p><strong>mb_RR:</strong> Pooled with Rubin’s rules.</p></li>
+</ul>
+</div>
+</section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<hr>
+<div>
+<p><strong>3. Bootstrap followed by MICE (bm):</strong></p>
+<p><span class="custom-subtitle"> BS = 1000.</span></p>
+<ul>
+<li class="fragment"><p><strong>bm_Q:</strong> Bootstrap percentile (M=10).</p></li>
+<li class="fragment"><p><strong>bm_Qp:</strong> Bootstrap percentile pooled sample (M=10).</p></li>
+<li class="fragment"><p><strong>bm_VH:</strong> von Hippel and Bartlett (M=2).</p></li>
+<li class="fragment"><p><strong>bm_Q1:</strong> Single imputation (M=1).</p></li>
+</ul>
+</div>
+</section><section class="slide level2"><p><span class="slide-title"> Conditional results</span> <img data-src="images/Cond.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: CI length</span> <img data-src="images/medCIL2.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: Bias</span> <img data-src="images/meanbias2.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Best method : Mean absolute error</span> <img data-src="images/probici.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: Coverage</span> <img data-src="images/mediancov.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Marginal results: Rank</span> <img data-src="images/rank.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Best method: Coverage</span> <img data-src="images/rank.png"> Proportion of within 5% of nominal coverage. <img data-src="images/rank.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Conclusion</span></p>
 <hr>
 <div>
 <ul>
-<li class="fragment">Not an overall winner method in coverage or bias.</li>
-<li class="fragment">Bootstrap and then MI methods provide more points inside the 95%CI coverage.</li>
-<li class="fragment">Single BS-MI alternative considering time processing.</li>
+<li class="fragment"><p>From the simulation, we could not find an overall winning method in terms of coverage and bias, but methods using bootstrap followed by MICE in general produce calibration curves with more estimates within the confidence interval of the nominal coverage.</p></li>
+<li class="fragment"><p>Considering processing time, a promising strategy could be Bootstrap with a single imputation method with a locfit smoother.</p></li>
 </ul>
 </div>
 </section><section class="slide level2"><p><span class="slide-title"> References</span></p>
-<hr>
-<ol type="1">
-<li>Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.</li>
-<li>Harrell FE Jr.&nbsp;Regression Modeling Strategies. 2nd ed.&nbsp;New York, NY: Springer-Verlag; 2015.</li>
-<li>Schomaker, M., &amp; Heumann, C. (2018). Bootstrap inference when using multiple imputation. Statistics in medicine, 37(14), 2252-2266.</li>
-<li>Bartlett, J. W., &amp; Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.</li>
-</ol></section><section class="slide level2">
+<ul>
+<li><p>Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.</p></li>
+<li><p>Harrell FE Jr.&nbsp;Regression Modeling Strategies. 2nd ed.&nbsp;New York, NY: Springer-Verlag; 2015.</p></li>
+<li><p>Bartlett, J. W., &amp; Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.</p></li>
+</ul>
+
 <img src="images/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
 </div>

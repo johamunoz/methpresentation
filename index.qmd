@@ -13,8 +13,6 @@ format:
       - style.scss
 ---
 
-<br> <br>
-
 <hr>
 
 [Synthesis of calibration plots]{.custom-title}
@@ -23,21 +21,13 @@ format:
 
 <br> <br>
 
-[Munoz, Debray & de Jong]{.custom-subtitle}
+[Muñoz, Debray & de Jong]{.custom-subtitle}
 
-Julius Center, Epi Methods group
+Julius Center for Health Sciences and Primary Care, Epidemiology Methods Team
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Motivation]{.slide-title}
-
-<hr>
-
-::: incremental
--   Literature enhance the use of calibration plot over discrete measures(Austin 2014).
--   Available package to get calibration plots (rms,calibration).
--   The synthesis of calibration plots coming from different source of information (**Clusters**).
-:::
+[{{< fa check >}} Motivation]{.slide-title} ![](images/F1.png)
 
 ------------------------------------------------------------------------
 
@@ -62,6 +52,7 @@ ggplot(data = dataplot, aes(x = pi, y =pr,color=as.factor(cluster))) +
   theme(legend.position="none")+
   theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
 ```
+
 ------------------------------------------------------------------------
 
 [{{< fa check >}} Calibration plots from clusters]{.slide-title}
@@ -91,7 +82,7 @@ ggplot(data = dataplot) +
   labs( x =expression("Estimated probability"~(pi)),
         y = "Actual proportion")+
   theme(legend.position="none")+
-  geom_ribbon(data=sdata,aes(x=x,ymax=ymax,ymin=ymin), fill = "#ADADAD")+
+  geom_ribbon(data=sdata,aes(x=x,ymax=ymax,ymin=ymin), fill = "white")+
   geom_line(data=sdata,aes(x,y),size=1.5,color="#003660")+
   geom_abline(color="black",linetype="dashed")+
    labs( x =expression("Estimated probability"~(pi)),
@@ -101,51 +92,11 @@ ggplot(data = dataplot) +
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Context]{.slide-title}
-![](images/m1.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/m2.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/m3.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/m4.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/m5.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/m6.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/cl1.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Context]{.slide-title}
-![](images/cl2.png)
-
-------------------------------------------------------------------------
-
 [{{< fa check >}} Multiple Imputation]{.slide-title}
 
 <hr>
-**Aim:**
-Evaluate methods for synthesize the calibration curves derived from multiple imputation output or from individual participant data in terms of coverage, CI length and bias. We focus on:
+
+**Aim:** Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage. We focus on:
 
 ::: incremental
 -   Smoothed calibration curves.
@@ -155,86 +106,99 @@ Evaluate methods for synthesize the calibration curves derived from multiple imp
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Data generation]{.slide-title}
-![](images/d1.png)
+[{{< fa check >}} Data generation]{.slide-title} ![](images/d1.png)
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Data generation]{.slide-title}
-![](images/d2.png)
+[{{< fa check >}} Data generation]{.slide-title} ![](images/d2.png) ------------------------------------------------------------------------
+
+[{{< fa check >}} Data generation]{.slide-title} ![](images/d3.png)
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Data generation]{.slide-title}
-![](images/d3.png)
+[{{< fa check >}} Data generation]{.slide-title} ![](images/d4.png)
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Data generation]{.slide-title}
-![](images/d4.png)
+[{{< fa check >}} Data generation]{.slide-title} ![](images/d5.png) 
 
-------------------------------------------------------------------------
-
-[{{< fa check >}} Data generation]{.slide-title}
-![](images/d5.png)
 ------------------------------------------------------------------------
 
 [{{< fa check >}} Methods]{.slide-title}
 
 <hr>
 
-+------------------------------+---------------------------------------+------------+------------+
-| Type                         | Method                                | MI         | BT         |
-+==============================+=======================================+============+============+
-| Multiple imputation only (m) | -   Stack.                            | 10         |            |
-|                              | -   Model pooled parameters (RRPar).  |            |            |
-|                              | -   Pooled se closed form (RR).       |            |            |
-+------------------------------+---------------------------------------+------------+------------+
-| MI then Bootstrap (mb)       | -   Rubins rules (RR).                | 10         | 1000       |
-|                              | -   Percentile Quartiles (Q).         |            |            |
-+------------------------------+---------------------------------------+------------+------------+
-| Bootstrap then MI (bm)       | -   Percentile pooled Quartiles (Qp). | -   10     | 1000       |
-|                              | -   Percentile total Quartiles (Qt).  | -   10     |            |
-|                              | -   Single quartile (Q1).             | -   1      |            |
-|                              | -   Von Hippel (VH).                  | -   2      |            |
-+------------------------------+---------------------------------------+------------+------------+
+::: incremental
+**1. Multiple imputation only (m):**
+
+[{{< fa check >}} MI = 10.]{.custom-subtitle}
+
+-   **m_stack:** Stack imputed datasets.
+
+-   **m_RRPar:** Calibration model with pooled parameters.
+
+-   **m_RR:** Pooled closed form SE with Rubin Rules.
+:::
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Performance measurements]{.slide-title}
+[{{< fa check >}} Methods]{.slide-title}
 
 <hr>
 
-Across 100 percentiles
+::: incremental
+**2. MICE followed by bootstrap (mb):**
 
--   CI length
--   Bias (median).
--   Coverage (median, number of points in 95%CI coverage).
+[{{< fa check >}} BS = 1000, MI = 10.]{.custom-subtitle}
 
-------------------------------------------------------------------------
+-   **mb_Qp:** Bootstrap percentile pooled sample.
 
-[{{< fa check >}} Conditional results]{.slide-title}
- ![](images/Cond.png)
-
-------------------------------------------------------------------------
-
-[{{< fa check >}} Marginal results: CI length]{.slide-title}
-![](images/medCIL2.png)
+-   **mb_RR:** Pooled with Rubin's rules.
+:::
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Marginal results: Bias]{.slide-title}
-![](images/meanbias2.png)
+[{{< fa check >}} Methods]{.slide-title}
+
+<hr>
+
+::: incremental
+**3. Bootstrap followed by MICE (bm):**
+
+[{{< fa check >}} BS = 1000.]{.custom-subtitle}
+
+-   **bm_Q:** Bootstrap percentile (M=10).
+
+-   **bm_Qp:** Bootstrap percentile pooled sample (M=10).
+
+-   **bm_VH:** von Hippel and Bartlett (M=2).
+
+-   **bm_Q1:** Single imputation (M=1).
+:::
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Marginal results: Coverage]{.slide-title}
-![](images/mediancov.png)
+[{{< fa check >}} Conditional results]{.slide-title} ![](images/Cond.png)
 
 ------------------------------------------------------------------------
 
-[{{< fa check >}} Marginal results: Rank]{.slide-title}
-![](images/rank.png)
+[{{< fa check >}} Marginal results: CI length]{.slide-title} ![](images/medCIL2.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: Bias]{.slide-title} ![](images/meanbias2.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Best method : Mean absolute error]{.slide-title} ![](images/probici.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Marginal results: Coverage]{.slide-title} ![](images/mediancov.png)
+
+------------------------------------------------------------------------
+
+[{{< fa check >}} Best method: Coverage]{.slide-title} ![](images/rank.png) Proportion of within 5% of nominal coverage. ![](images/rank.png)
 
 ------------------------------------------------------------------------
 
@@ -243,25 +207,18 @@ Across 100 percentiles
 <hr>
 
 ::: incremental
--   Not an overall winner method in coverage or bias.
--   Bootstrap and then MI methods provide more points inside the 95%CI coverage.
--   Single BS-MI alternative considering time processing.
+-   From the simulation, we could not find an overall winning method in terms of coverage and bias, but methods using bootstrap followed by MICE in general produce calibration curves with more estimates within the confidence interval of the nominal coverage.
+
+-   Considering processing time, a promising strategy could be Bootstrap with a single imputation method with a locfit smoother.
 :::
 
 ------------------------------------------------------------------------
 
 [{{< fa check >}} References]{.slide-title}
 
-<hr>
+-   Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.
 
-1.  Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.
-2.  Harrell FE Jr. Regression Modeling Strategies. 2nd ed. New York, NY: Springer-Verlag; 2015.
-3.  Schomaker, M., & Heumann, C. (2018). Bootstrap inference when using multiple imputation. Statistics in medicine, 37(14), 2252-2266.
-4.  Bartlett, J. W., & Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.
- 
-------------------------------------------------------------------------
+-   Harrell FE Jr. Regression Modeling Strategies. 2nd ed. New York, NY: Springer-Verlag; 2015.
 
-
-
-
+-   Bartlett, J. W., & Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.
 
