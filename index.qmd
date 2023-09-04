@@ -273,8 +273,8 @@ Bartlett, J. W., & Hughes, R. A. (2020)
 -   **bm_Qp:** Bootstrap percentile pooled sample (B=10.000, M=10).
 
 -   **bm_Q:** Bootstrap percentile (B=10.000, M=10).
-$$ {{\theta_b}^*=M^{-1}\sum_m\hat{\theta}_{bm}}$$
-$${\Theta=\{{\theta_b}^*;b=1,..B\}}$$
+$$ \theta_b^*=M^{-1}\sum_m\hat{\theta}_{bm}$$
+$$\Theta=\{\theta_b^*;b=1,..B\}$$
 $${\lbrack\Theta^{\alpha/2} ,\Theta^{1-\alpha/2}\rbrack}$$
 
 ------------------------------------------------------------------------
