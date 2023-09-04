@@ -331,6 +331,7 @@
 <p><br><br></p>
 <p><span class="custom-subtitle">Muñoz, Debray &amp; de Jong</span></p>
 <p>Julius Center for Health Sciences and Primary Care, Epidemiology Methods Team</p>
+</section><section class="slide level2"><p><span class="slide-title"> Motivation</span> <img data-src="images/i1.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Motivation</span> <img data-src="images/F1.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Calibration plots from clusters</span></p>
 <div class="cell">
@@ -341,73 +342,128 @@
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Calibration plots from clusters</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section><section class="slide level2"><p><span class="slide-title"> Clusters</span></p>
+<hr>
+<ul>
+<li>Individual Participant data (Clusters = <strong>Study</strong>)</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Clusters</span></p>
+<hr>
+<ul>
+<li>Individual Participant data (Clusters = <strong>Study</strong>)</li>
+<li>Multiple imputed data (Cluster = <strong>Imputed dataset</strong> )</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
+<hr>
+<p><strong>Aim:</strong> Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage.</p>
+</section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
 <hr>
 <p><strong>Aim:</strong> Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage. We focus on:</p>
-<div>
 <ul>
-<li class="fragment">Smoothed calibration curves.</li>
-<li class="fragment">Smooth functions : Loess, Locfit, natural splines.</li>
-<li class="fragment">Confidence intervals: Closed form, Bootstrap.</li>
-</ul>
-</div>
+<li>Smoothed calibration curves.</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
+<hr>
+<p><strong>Aim:</strong> Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage. We focus on:</p>
+<ul>
+<li>Smoothed calibration curves.</li>
+<li>Smooth functions : Loess, Locfit, natural splines.</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Multiple Imputation</span></p>
+<hr>
+<p><strong>Aim:</strong> Evaluate methods for synthesizing calibration curves from multiple imputed datasets in terms of confidence interval (CI) length, bias and coverage. We focus on:</p>
+<ul>
+<li>Smoothed calibration curves.</li>
+<li>Smooth functions : Loess, Locfit, natural splines.</li>
+<li>Confidence intervals: Closed form, Bootstrap.</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d0.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d1.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d2.png"> ————————————————————————</p>
-<p><span class="slide-title"> Data generation</span> <img data-src="images/d3.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d2.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d3.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d4.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Data generation</span> <img data-src="images/d5.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
-<hr>
-<div>
 <p><strong>1. Multiple imputation only (m):</strong></p>
-<p><span class="custom-subtitle"> MI = 10.</span></p>
-<ul>
-<li class="fragment"><p><strong>m_stack:</strong> Stack imputed datasets.</p></li>
-<li class="fragment"><p><strong>m_RRPar:</strong> Calibration model with pooled parameters.</p></li>
-<li class="fragment"><p><strong>m_RR:</strong> Pooled closed form SE with Rubin Rules.</p></li>
-</ul>
-</div>
+<p><span class="custom-subtitle"> M = 10.</span></p>
 </section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
-<hr>
-<div>
-<p><strong>2. MICE followed by bootstrap (mb):</strong></p>
-<p><span class="custom-subtitle"> BS = 1000, MI = 10.</span></p>
+<p><strong>1. Multiple imputation only (m):</strong></p>
+<p><span class="custom-subtitle"> M = 10.</span></p>
 <ul>
-<li class="fragment"><p><strong>mb_Qp:</strong> Bootstrap percentile pooled sample.</p></li>
-<li class="fragment"><p><strong>mb_RR:</strong> Pooled with Rubin’s rules.</p></li>
-</ul>
-</div>
+<li>
+<strong>m_stack:</strong> Stack imputed datasets.</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>1. Multiple imputation only (m):</strong></p>
+<p><span class="custom-subtitle"> M = 10.</span></p>
+<ul>
+<li><p><strong>m_stack:</strong> Stack imputed datasets.</p></li>
+<li><p><strong>m_RRPar:</strong> Calibration model with pooled parameters.</p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>1. Multiple imputation only (m):</strong></p>
+<ul>
+<li><p><strong>m_stack:</strong> Stack imputed datasets (M=10).</p></li>
+<li><p><strong>m_RRPar:</strong> Calibration model with pooled parameters (M=10).</p></li>
+<li><p><strong>m_RR:</strong> use closed form SE with Rubin Rules (M=10) <span class="math display">\[{\lbrack \hat{\theta}_p+t_v\sqrt{T},\hat{\theta}_p+t_v\sqrt{T}\rbrack}\]</span></p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p>Bartlett, J. W., &amp; Hughes, R. A. (2020)</p>
+<p><strong>2. Multiple imputation followed by bootstrap (mb):</strong></p>
 </section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
-<hr>
-<div>
-<p><strong>3. Bootstrap followed by MICE (bm):</strong></p>
-<p><span class="custom-subtitle"> BS = 1000.</span></p>
+<p><strong>2. Multiple imputation followed by bootstrap (mb):</strong></p>
 <ul>
-<li class="fragment"><p><strong>bm_Q:</strong> Bootstrap percentile (M=10).</p></li>
-<li class="fragment"><p><strong>bm_Qp:</strong> Bootstrap percentile pooled sample (M=10).</p></li>
-<li class="fragment"><p><strong>bm_VH:</strong> von Hippel and Bartlett (M=2).</p></li>
-<li class="fragment"><p><strong>bm_Q1:</strong> Single imputation (M=1).</p></li>
-</ul>
-</div>
-</section><section class="slide level2"><p><span class="slide-title"> Conditional results</span> <img data-src="images/Cond.png"></p>
+<li>
+<strong>mb_RR:</strong> Bootstrap samples are used to estimate the variance within the imputation, and then the CIs are obtained according to Rubin’s rules. (M = 10, B = 10.000)</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>2. Multiple imputation followed by bootstrap (mb):</strong></p>
+<ul>
+<li><p><strong>mb_RR:</strong> Bootstrap samples are used to estimate the variance within the imputation, and then the CIs are obtained according to Rubin’s rules. (M=10, B=10.000)</p></li>
+<li><p><strong>mb_Qp:</strong> Bootstrap percentile pooled sample. (M=10, B=10.000) <span class="math display">\[ {\Theta=\{\hat{\theta}_{m,b};b=1,..B,m=1,..M\}}\]</span> <span class="math display">\[{\lbrack\Theta^{\alpha/2} ,\Theta^{1-\alpha/2}\rbrack}\]</span></p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>3. Bootstrap followed by Multiple imputation (mb):</strong></p>
+</section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>3. Bootstrap followed by Multiple imputation (mb):</strong></p>
+<ul>
+<li>
+<strong>bm_Qp:</strong> Bootstrap percentile pooled sample (B=10.000, M=10). <span class="math display">\[ {\Theta=\{\hat{\theta}_{m,b};b=1,..B,m=1,..M\}}\]</span> <span class="math display">\[ {\lbrack\Theta^{\alpha/2} ,\Theta^{1-\alpha/2}\rbrack}\]</span>
+</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>3. Bootstrap followed by Multiple imputation (mb):</strong></p>
+<ul>
+<li><p><strong>bm_Qp:</strong> Bootstrap percentile pooled sample (B=10.000, M=10).</p></li>
+<li><p><strong>bm_Q:</strong> Bootstrap percentile (B=10.000, M=10). <span class="math display">\[ {{\theta_b}^*=M^{-1}\sum_m\hat{\theta}_{bm}}\]</span> <span class="math display">\[{\Theta=\{{\theta_b}^*;b=1,..B\}}\]</span> <span class="math display">\[{\lbrack\Theta^{\alpha/2} ,\Theta^{1-\alpha/2}\rbrack}\]</span></p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>3. Bootstrap followed by Multiple imputation (mb):</strong></p>
+<ul>
+<li><p><strong>bm_Qp:</strong> Bootstrap percentile pooled sample (B=10.000, M=10).</p></li>
+<li><p><strong>bm_Q:</strong> Bootstrap percentile (B=10.000, M=10).</p></li>
+<li><p><strong>bm_VH:</strong> von Hippel and Bartlett (B=10.000, M=2).</p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Methods</span></p>
+<p><strong>3. Bootstrap followed by Multiple imputation (mb):</strong></p>
+<ul>
+<li><p><strong>bm_Qp:</strong> Bootstrap percentile pooled sample (B=10.000, M=10).</p></li>
+<li><p><strong>bm_Q:</strong> Bootstrap percentile (B=10.000, M=10).</p></li>
+<li><p><strong>bm_VH:</strong> von Hippel and Bartlett (B=10.000, M=2).</p></li>
+<li><p><strong>bm_Q1:</strong> Single imputation (B=10.000, M=1).</p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Conditional results</span> <img data-src="images/Cond.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: CI length</span> <img data-src="images/medCIL2.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: Bias</span> <img data-src="images/meanbias2.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Best method : Mean absolute error</span> <img data-src="images/probici.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Marginal results: Coverage</span> <img data-src="images/mediancov.png"></p>
-</section><section class="slide level2"><p><span class="slide-title"> Best method: Coverage</span> <img data-src="images/rank.png"> Proportion of within 5% of nominal coverage. <img data-src="images/rank.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Best method: within CI coverage N=500</span> <img data-src="images/n500a.png"></p>
+</section><section class="slide level2"><p><span class="slide-title"> Best method: within CI coverage N=1000</span> <img data-src="images/n1000a.png"></p>
 </section><section class="slide level2"><p><span class="slide-title"> Conclusion</span></p>
 <hr>
-<div>
 <ul>
-<li class="fragment"><p>From the simulation, we could not find an overall winning method in terms of coverage and bias, but methods using bootstrap followed by MICE in general produce calibration curves with more estimates within the confidence interval of the nominal coverage.</p></li>
-<li class="fragment"><p>Considering processing time, a promising strategy could be Bootstrap with a single imputation method with a locfit smoother.</p></li>
-</ul>
-</div>
-</section><section class="slide level2"><p><span class="slide-title"> References</span></p>
+<li>From the simulation, we could not find an overall winning method in terms of coverage and bias, but methods using bootstrap followed by MICE in general produce calibration curves with more estimates within the confidence interval of the nominal coverage.</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> Conclusion</span></p>
+<hr>
 <ul>
-<li><p>Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.</p></li>
-<li><p>Harrell FE Jr.&nbsp;Regression Modeling Strategies. 2nd ed.&nbsp;New York, NY: Springer-Verlag; 2015.</p></li>
-<li><p>Bartlett, J. W., &amp; Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.</p></li>
+<li><p>From the simulation, we could not find an overall winning method in terms of coverage and bias, but methods using bootstrap followed by MICE in general produce calibration curves with more estimates within the confidence interval of the nominal coverage.</p></li>
+<li><p>Considering processing time, a promising strategy could be Bootstrap with a single imputation method with a locfit smoother.</p></li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> References</span></p>
+<ul>
+<li>Austin PC, Steyerberg EW. Graphical assessment of internal and external calibration of logistic regression models by using loess smoothers. Stat Med. 2014; 33(3): 517-535.</li>
+<li>Harrell FE Jr.&nbsp;Regression Modeling Strategies. 2nd ed.&nbsp;New York, NY: Springer-Verlag; 2015.</li>
+<li>Hosmer DW, Hosmer T, le Cessie S, et al: A comparison of goodness-of-fit tests for the logistic regression model. Stat Med 16:965-980, 1997</li>
+</ul></section><section class="slide level2"><p><span class="slide-title"> References</span></p>
+<ul>
+<li>Rubin, D. B. (1976). Inference and missing data. Biometrika, 63(3), 581-592.</li>
+<li>Van Buuren, S. (2018). Flexible imputation of missing data. CRC press.</li>
+<li>Bartlett, J. W., &amp; Hughes, R. A. (2020). Bootstrap inference for multiple imputation under uncongeniality and misspecification. Statistical methods in medical research, 29(12), 3533-3546.</li>
 </ul>
 
 <img src="images/logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
